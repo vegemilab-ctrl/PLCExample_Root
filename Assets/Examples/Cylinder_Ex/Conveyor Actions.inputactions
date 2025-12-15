@@ -1,0 +1,35 @@
+{
+    "version": 1,
+    "name": "Conveyor Actions",
+    "maps": [
+        {
+            "name": "Conveyor",
+            "id": "1d2543a5-4a84-4069-8c4b-809686a53276",
+            "actions": [
+                {
+                    "name": "Product",
+                    "type": "Button",
+                    "id": "8417d4d1-c93c-4c0b-8281-f84cc387392b",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "97ce08aa-a453-4a13-a408-09b18e4c1b50",
+                    "path": "<Keyboard>/enter",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Product",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
