@@ -689,7 +689,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1583847514345150537, guid: 9391d78ca3907a246aaf441add0a128d, type: 3}
       propertyPath: m_Name
-      value: 1200400001FP (1)
+      value: 1200400001FP_Joint
       objectReference: {fileID: 0}
     - target: {fileID: 2211588752203956979, guid: 9391d78ca3907a246aaf441add0a128d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1386,7 +1386,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   product: {fileID: 301642562636179024, guid: 3220d5cf83513a347834d99d7f8cb5ad, type: 3}
-  spawnPosition: {fileID: 1925662184}
+  spawnPositions: []
+  startSpawnTime: 0
+  spawnInterval: 1
 --- !u!4 &1925662184
 Transform:
   m_ObjectHideFlags: 0

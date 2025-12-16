@@ -5,48 +5,42 @@ public class ProductSpawner : MonoBehaviour
 {
     // 생산할 제품 오브젝트 (Unity Inspector에서 할당)
     public GameObject product;
-
     // 생산 위치 (Unity Inspector에서 할당)
-    public Transform spawnPosition;
+    public Transform[] spawnPositions;
+    //첫 상품 제조 시간
+    public float startSpawnTime = 0f;
+    //상품 제조 시간 간격
+    public float spawnInterval = 1f;
+    //상품 제조 예정 시간
+    private float _spawnTime = 0f;
 
-    // 생성 간격 (1초)
-    private readonly float spawnInterval = 2.0f;
 
-    // 게임 시작 시 한 번 호출됩니다.
-    void Start()
+    private void OnEnable()
     {
-        // 큐브 생성 루틴을 시작합니다.
-        StartCoroutine(SpawnProductRoutine());
+        //상품 제조기에 전원이 켜질때마다 첫 상품제조시간을 현재 시간에 더해
+        //제조예정시간에 기록한다. OnEnable -> 활성화 비활성화 On/Off로 볼 때 첫상품만드는 시간 + 이후 상품제조시간 리셋됨.
+        _spawnTime = Time.time + startSpawnTime;
     }
 
-    // 인풋에 연결된 Product액션은 자동 생성 기능으로 대체되므로 제거하거나 주석 처리했습니다.
-    // public void OnProduct()
-    // {
-    //     Instantiate(product, spawnPosition.position, spawnPosition.rotation);
-    // }
-
-    /// <summary>
-    /// 1초마다 큐브를 생성하는 코루틴입니다.
-    /// </summary>
-    IEnumerator SpawnProductRoutine()
+    //인풋에 연결된 Product액션에 호출됨.
+    public void OnProduct()
     {
-        // 무한 루프를 돌면서 큐브를 생성합니다.
-        while (true)
+        //생산 위치 배열 수만큼 반복해서 생산한다.
+        for(int i = 0; i < spawnPositions.Length; ++i)
         {
-            // 큐브 생성 함수 호출
-            SpawnProduct();
-
-            // 지정된 시간(1.0초)만큼 기다립니다.
-            yield return new WaitForSeconds(spawnInterval);
+            Instantiate(product, spawnPositions[i].position, spawnPositions[i].rotation);
         }
     }
 
-    /// <summary>
-    /// 실제 큐브를 생성하는 함수
-    /// </summary>
-    void SpawnProduct()
+    private void Update()
     {
-        // 제품(product)을 지정된 위치(spawnPosition)에 생성합니다.
-        Instantiate(product, spawnPosition.position, spawnPosition.rotation);
+        //상품 제조 예정 시간이 아직 안되었으면 돌아가라.
+        if (_spawnTime > Time.time)
+            return;
+
+        //다음 상품 제조 예정 시간을 갱신
+        _spawnTime += spawnInterval;
+        //상품 제조
+        OnProduct();
     }
 }
